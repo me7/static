@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BuddhaDhamma Redirector</title>
+</head>
+
+<body>
+  <script>
+    async function getCidPid(page) {
+      const url = `https://book.watnyanaves.net/buddhadhamma/function/get_pp.php?gotopp=${page}`
+      const resp = await fetch(url)
+      const text = await resp.text()
+      return text
+    }
+    async function goToPage() {
+      const params = new URL(window.location).searchParams
+      const page = params.get('page')
+      let cidText = await getCidPid(page)
+      const [cid, pid] = cidText.split("_SEP_")
+      const url = `https://book.watnyanaves.net/buddhadhamma/index.php?cid=${cid}&pid=${pid}`
+      window.location.href = url
+    }
+
+    goToPage()
+  </script>
+</body>
+
+</html>
