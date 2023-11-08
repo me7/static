@@ -74,7 +74,6 @@ def main():
   w.add_outline_item('index', 1258)
 
   for page_no in range(0, len(r.pages)):
-  # for page_no in range(0, 200):
     p = r.pages[page_no]
     w.add_page(p)
     print(page_no)
@@ -82,7 +81,9 @@ def main():
        p.extract_text(visitor_text=vfn_toc)
     if page_no > 1257:
         p.extract_text(visitor_text=vfn_index)
-
+    if page_no in range(32,1205):
+      rect = [45,780,530,810]
+      w.add_annotation(page_no, Link(url=f"https://me7.github.io/static/buddhadhamma?page={page_no - offset}", rect=rect))    
   w.write("out.pdf")
 
 main()
